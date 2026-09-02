@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="echeancierValueHelpDialog"
+    title="Sélectionner une modalité de facturation"
+    items="{/EcheancierVH}"
+    confirm=".onEcheancierSelected">
+    <StandardListItem
+      id="echeancierListItem"
+      title="{Cle}"
+      description="{Libelle}" />
+  </SelectDialog>
+</core:FragmentDefinition>

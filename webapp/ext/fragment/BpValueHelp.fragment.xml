@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="bpValueHelpDialog"
+    title="Rechercher un partenaire"
+    items="{/BpVH}"
+    confirm=".onBpSelected"
+    search=".onBpSearch">
+    <StandardListItem
+      id="bpListItem"
+      title="{PartnerId}"
+      description="{NomEntreprise} {Nom} {Prenom}" />
+  </SelectDialog>
+</core:FragmentDefinition>

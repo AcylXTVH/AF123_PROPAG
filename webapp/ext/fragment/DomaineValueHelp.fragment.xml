@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="domaineValueHelpDialog"
+    title="Sélectionner une valeur"
+    items="{/DomaineVH}"
+    confirm=".onDomaineSelected">
+    <StandardListItem
+      id="domaineListItem"
+      title="{Cle}"
+      description="{Libelle}" />
+  </SelectDialog>
+</core:FragmentDefinition>

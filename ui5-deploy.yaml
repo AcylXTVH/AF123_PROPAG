@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://sap.github.io/ui5-tooling/schema/ui5.yaml.json
+
+specVersion: "4.0"
+metadata:
+  name: com.socotec.aff.propagdemande
+type: application
+builder:
+  resources:
+    excludes:
+      - /test/**
+      - /localService/**
+  customTasks:
+    - name: deploy-to-abap
+      afterTask: generateCachebusterInfo
+      configuration:
+        target:
+          destination: S4HANA_DEV100
+          url: http://vhsexds4ci.sap.socotec.com:44300
+          client: '100'
+        app:
+          name: ZAFF_PROPAGDEM
+          description: Propagation données maille affaire
+          package: ZAFF_PROPAG
+          transport: DS4K907237
+        exclude:
+          - /test/
+          - /localService/

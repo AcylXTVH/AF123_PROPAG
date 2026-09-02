@@ -1,0 +1,36 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <Dialog id="propagerDialog" title="Propager les champs sélectionnés" contentWidth="30rem">
+    <content>
+      <List id="propagerList" items="{config>/champs}">
+      <CustomListItem id="propagerListItem">
+        <HBox id="propagerHBox" alignItems="Center" justifyContent="SpaceBetween" width="100%">
+          <CheckBox id="propagerCheckBox" selected="{config>selected}" text="{config>ChampLibelle}" />
+          <Input
+            id="propagerInput"
+            visible="{= ${config>TypeControle} !== 'DATE' }"
+            value="{config>valeur}"
+            width="12rem"
+            enabled="{config>selected}"
+            showValueHelp="{= ${config>TypeControle} === 'MC_ADRESSE' || ${config>TypeControle} === 'MC_BP' || ${config>TypeControle} === 'DROPDOWN' || ${config>TypeControle} === 'MC_MODEPAI' || ${config>TypeControle} === 'MC_TUNIT' || ${config>TypeControle} === 'MC_BLOCFA' || ${config>TypeControle} === 'MC_TYPPLAN' || ${config>TypeControle} === 'MC_FUNCLOC' || ${config>TypeControle} === 'MC_ECHEANC' }" valueHelpRequest=".onValueHelpRequest" />
+          <DatePicker
+            id="propagerDatePicker"
+            visible="{= ${config>TypeControle} === 'DATE' }"
+            value="{config>valeur}"
+            valueFormat="yyyy-MM-dd"
+            displayFormat="dd/MM/yyyy"
+            width="12rem"
+            enabled="{config>selected}" />
+        </HBox>
+    </CustomListItem>
+      </List>
+    </content>
+    <beginButton>
+      <Button id="propagerBtnExecuter" text="Exécuter" type="Emphasized" press=".onExecuterPropagation" />
+    </beginButton>
+    <endButton>
+      <Button id="propagerBtnAnnuler" text="Annuler" press=".onFermerDialog" />
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

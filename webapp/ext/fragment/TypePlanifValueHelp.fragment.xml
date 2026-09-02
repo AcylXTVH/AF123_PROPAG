@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="typePlanifValueHelpDialog"
+    title="Sélectionner un type de planification"
+    items="{/TypePlanifVH}"
+    confirm=".onTypePlanifSelected">
+    <StandardListItem
+      id="typePlanifListItem"
+      title="{Cle}"
+      description="{Libelle}" />
+  </SelectDialog>
+</core:FragmentDefinition>

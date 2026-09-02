@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="bpAdresseValueHelpDialog"
+    title="Sélectionner un partenaire et son adresse"
+    items="{/BpAdresseVH}"
+    confirm=".onBpAdresseSelected"
+    search=".onBpAdresseSearch">
+    <StandardListItem
+      id="bpAdresseListItem"
+      title="{NomEntreprise} ({PartnerId})"
+      description="{Rue}, {CodePostal} {Ville}" />
+  </SelectDialog>
+</core:FragmentDefinition>

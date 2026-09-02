@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="blocFactValueHelpDialog"
+    title="Sélectionner un motif de blocage"
+    items="{/BlocFactVH}"
+    confirm=".onBlocFactSelected">
+    <StandardListItem
+      id="blocFactListItem"
+      title="{Cle}"
+      description="{Libelle}" />
+  </SelectDialog>
+</core:FragmentDefinition>

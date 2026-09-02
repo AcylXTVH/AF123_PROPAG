@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="funcLocValueHelpDialog"
+    title="Sélectionner un poste technique"
+    items="{/FuncLocVH}"
+    confirm=".onFuncLocSelected">
+    <StandardListItem
+      id="funcLocListItem"
+      title="{Tplnr}"
+      description="{Pltxt}" />
+  </SelectDialog>
+</core:FragmentDefinition>

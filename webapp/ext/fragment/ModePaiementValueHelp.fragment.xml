@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="modePaiementValueHelpDialog"
+    title="Sélectionner un mode de paiement"
+    items="{/ModePaiementVH}"
+    confirm=".onModePaiementSelected">
+    <StandardListItem
+      id="modePaiementListItem"
+      title="{Cle}"
+      description="{Libelle}" />
+  </SelectDialog>
+</core:FragmentDefinition>

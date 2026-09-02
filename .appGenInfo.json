@@ -1,0 +1,29 @@
+{
+  "generationParameters": {
+    "generationDate": "Fri Jul 24 2026 15:32:02 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "SAP System (ABAP On-Premise)",
+    "metadataFilename": "",
+    "serviceUrl": "https://s4hana_dev110.dest/sap/opu/odata4/sap/zui_aff_propag_demande/srvd/sap/zui_aff_propag_demande/0001/",
+    "appName": "propagdemande",
+    "appTitle": "Propagation Affaire",
+    "appDescription": "Propagation des données à la maille de l'affaire",
+    "appNamespace": "com.socotec.aff",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.114.0",
+    "enableEslint": true,
+    "enableTypeScript": false,
+    "showMockDataInfo": true,
+    "generatorVersion": "1.29.0",
+    "template": "List Report Page V4",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [
+      {
+        "type": "Main Entity",
+        "value": "ZR_AFF_PROPAG_DEMANDE"
+      }
+    ],
+    "launchText": "To launch the generated application, run the following from the generated application root folder:\n\n```\n    npm start\n```",
+    "valueHelpDownloaded": true
+  }
+}

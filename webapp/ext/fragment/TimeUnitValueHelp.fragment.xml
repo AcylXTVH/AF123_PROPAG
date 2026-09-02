@@ -1,0 +1,14 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="timeUnitValueHelpDialog"
+    title="Sélectionner une unité"
+    items="{/TimeUnitVH}"
+    confirm=".onTimeUnitSelected">
+    <StandardListItem
+      id="timeUnitListItem"
+      title="{Libelle}"
+      description="{Cle}" />
+  </SelectDialog>
+</core:FragmentDefinition>
