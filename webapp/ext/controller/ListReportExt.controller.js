@@ -504,11 +504,11 @@ sap.ui.define([
 			}
 
 			// --- DIAGNOSTIC TEMPORAIRE ---
-			console.log("_afficherColonneChampMetier - sChampMetier:", sChampMetier, "→ sChampTechnique:", sChampTechnique);
+			//console.log("_afficherColonneChampMetier - sChampMetier:", sChampMetier, "→ sChampTechnique:", sChampTechnique);
 
 			const sNomColonneActive = mChampTechniqueVersColonne[sChampTechnique];
 
-			console.log("_afficherColonneChampMetier - sNomColonneActive:", sNomColonneActive);
+			//console.log("_afficherColonneChampMetier - sNomColonneActive:", sNomColonneActive);
 			// --- FIN DIAGNOSTIC ---
 
 			const oTable = sap.ui.getCore().byId(
