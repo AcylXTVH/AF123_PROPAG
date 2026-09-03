@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="condPaiementValueHelpDialog"
+    title="Sélectionner une condition de paiement"
+    items="{/CondPaiementVH}"
+    confirm=".onCondPaiementSelected"
+    search=".onCondPaiementSearch">
+    <StandardListItem
+      id="condPaiementListItem"
+      title="{Zterm}"
+      description="{Libelle}" />
+  </SelectDialog>
+</core:FragmentDefinition>

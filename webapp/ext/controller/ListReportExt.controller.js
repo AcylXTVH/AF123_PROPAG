@@ -177,10 +177,15 @@ sap.ui.define([
 			const oBindingContext = this._oInputSource.getBindingContext("config");
 			const sTypeControle = oBindingContext.getProperty("TypeControle");
 
+			const oConfigContext = this._oInputSource.getBindingContext("config");
+			const sChampTechnique = oConfigContext.getProperty("ChampTechnique");
+
 			if (sTypeControle === "MC_BP") {
 				await this._openBpValueHelp();
 			} else if (sTypeControle === "MC_ADRESSE") {
 				await this._openBpAdresseValueHelp();
+			} else if (sTypeControle === "DROPDOWN" && sChampTechnique === "PMNTTRMS") {
+				await this._openCondPaiementValueHelp();
 			} else if (sTypeControle === "DROPDOWN") {
 				await this._openDomaineValueHelp(oBindingContext);
 			} else if (sTypeControle === "MC_MODEPAI") {
@@ -196,6 +201,33 @@ sap.ui.define([
 			} else if (sTypeControle === "MC_ECHEANC") {
 				await this._openEcheancierValueHelp();
 			}
+		},
+
+		_openCondPaiementValueHelp: async function () {
+
+			if (!this._oCondPaiementDialog) {
+				this._oCondPaiementDialog = await this.base.getExtensionAPI().loadFragment({
+					name: "com.socotec.aff.propagdemande.ext.fragment.CondPaiementValueHelp",
+					controller: this
+				});
+				this.base.getView().addDependent(this._oCondPaiementDialog);
+			}
+
+			this._oCondPaiementDialog.open();
+		},
+
+		onCondPaiementSelected: function (oEvent) {
+			const oSelectedItem = oEvent.getParameter("selectedItem");
+			if (oSelectedItem) {
+				const oData = oSelectedItem.getBindingContext().getObject();
+				this._oInputSource.setValue(oData.Zterm);
+			}
+		},
+
+		onCondPaiementSearch: function (oEvent) {
+			const sValue = oEvent.getParameter("value");
+			const oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter(sValue ? new Filter("Libelle", "Contains", sValue) : []);
 		},
 
 		_openTypePlanifValueHelp: async function () {
@@ -488,6 +520,7 @@ sap.ui.define([
 				"PROJET_DONNEUR_ORDRE": "Projet_Donneur_Ordre",
 				"AUTO_RENEW_EXTEND": "Auto_Renew_Exten",
 				"AUTO_RENEW_PERIOD": "Auto_Renew_Period",
+				"DATE_FIN_CONTRAT": "Contend",
 			};
 
 			const oModel = this.base.getView().getModel();
@@ -504,11 +537,11 @@ sap.ui.define([
 			}
 
 			// --- DIAGNOSTIC TEMPORAIRE ---
-			console.log("_afficherColonneChampMetier - sChampMetier:", sChampMetier, "→ sChampTechnique:", sChampTechnique);
+			//console.log("_afficherColonneChampMetier - sChampMetier:", sChampMetier, "→ sChampTechnique:", sChampTechnique);
 
 			const sNomColonneActive = mChampTechniqueVersColonne[sChampTechnique];
 
-			console.log("_afficherColonneChampMetier - sNomColonneActive:", sNomColonneActive);
+			//console.log("_afficherColonneChampMetier - sNomColonneActive:", sNomColonneActive);
 			// --- FIN DIAGNOSTIC ---
 
 			const oTable = sap.ui.getCore().byId(
