@@ -330,7 +330,7 @@ sap.ui.define([
 			}
 		},
 
-		_openBpValueHelp: async function () {
+		/*_openBpValueHelp: async function () {
 			if (!this._oBpDialog) {
 				this._oBpDialog = await this.base.getExtensionAPI().loadFragment({
 					name: "com.socotec.aff.propagdemande.ext.fragment.BpValueHelp",
@@ -339,6 +339,59 @@ sap.ui.define([
 				this.base.getView().addDependent(this._oBpDialog);
 			}
 			this._oBpDialog.open();
+		},*/
+
+		_openBpValueHelp: async function () {
+
+			const oConfigContext = this._oInputSource.getBindingContext("config");
+			const oExtensionAPI = this.base.getExtensionAPI();
+			const aSelectedContexts = oExtensionAPI.getSelectedContexts();
+
+			let sSoldToPartyFiltre = "";
+
+			if (aSelectedContexts.length > 0) {
+				const sGuidObjet = aSelectedContexts[0].getObject().GuidObjet;
+
+				const oModel = this.base.getView().getModel();
+				const oListBinding = oModel.bindList("/ZR_AFF_PROPAG_DEMANDE", undefined, undefined, [
+					new Filter("GuidObjet", "EQ", sGuidObjet)
+				]);
+				const aContexts = await oListBinding.requestContexts(0, 1);
+				if (aContexts.length > 0) {
+					sSoldToPartyFiltre = aContexts[0].getObject().Partner_Client_Facture || "";
+				}
+			}
+
+			if (!this._oBpContactDialog) {
+				this._oBpContactDialog = await this.base.getExtensionAPI().loadFragment({
+					name: "com.socotec.aff.propagdemande.ext.fragment.BpContactValueHelp",
+					controller: this
+				});
+				this.base.getView().addDependent(this._oBpContactDialog);
+			}
+
+			this._oBpContactDialog.open();
+			
+			const oBinding = this._oBpContactDialog.getBinding("items");
+			if (sSoldToPartyFiltre) {
+				oBinding.filter([new Filter("SoldToParty", "EQ", sSoldToPartyFiltre)]);
+			} else {
+				oBinding.filter([]);
+			}
+		},
+
+		onBpContactSelected: function (oEvent) {
+			const oSelectedItem = oEvent.getParameter("selectedItem");
+			if (oSelectedItem) {
+				const oData = oSelectedItem.getBindingContext().getObject();
+				this._oInputSource.setValue(oData.PartnerId);
+			}
+		},
+
+		onBpContactSearch: function (oEvent) {
+			const sValue = oEvent.getParameter("value");
+			const oBinding = oEvent.getSource().getBinding("items");
+			oBinding.filter(sValue ? new Filter("Nom", "Contains", sValue) : []);
 		},
 
 		_openBpAdresseValueHelp: async function () {

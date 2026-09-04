@@ -1,0 +1,16 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <SelectDialog
+    id="bpContactValueHelpDialog"
+    title="Sélectionner un contact"
+    items="{/BpContactVH}"
+    noDataText="Aucun contact trouvé pour le client de ce document"
+    confirm=".onBpContactSelected"
+    search=".onBpContactSearch">
+    <StandardListItem
+      id="bpContactListItem"
+      title="{Prenom} {Nom}"
+      description="{NomEntreprise} ({PartnerId})" />
+  </SelectDialog>
+</core:FragmentDefinition>
