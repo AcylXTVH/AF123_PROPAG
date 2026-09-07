@@ -18,6 +18,9 @@ sap.ui.define([
 				if (oFilterBar) {
 					oFilterBar.attachSearch(this.onFilterBarSearch, this);
 				}
+
+				this.getView().setModel(new JSONModel({ champProlongationSelectionne: false }), "uiState");
+
 			}
 		},
 
@@ -371,7 +374,7 @@ sap.ui.define([
 			}
 
 			this._oBpContactDialog.open();
-			
+
 			const oBinding = this._oBpContactDialog.getBinding("items");
 			if (sSoldToPartyFiltre) {
 				oBinding.filter([new Filter("SoldToParty", "EQ", sSoldToPartyFiltre)]);
@@ -574,6 +577,7 @@ sap.ui.define([
 				"AUTO_RENEW_EXTEND": "Auto_Renew_Exten",
 				"AUTO_RENEW_PERIOD": "Auto_Renew_Period",
 				"DATE_FIN_CONTRAT": "Contend",
+				"PROJET_DESIGNATION_COURTE": "Projet_Designation_Courte",
 			};
 
 			const oModel = this.base.getView().getModel();
@@ -590,11 +594,11 @@ sap.ui.define([
 			}
 
 			// --- DIAGNOSTIC TEMPORAIRE ---
-			//console.log("_afficherColonneChampMetier - sChampMetier:", sChampMetier, "→ sChampTechnique:", sChampTechnique);
+			console.log("_afficherColonneChampMetier - sChampMetier:", sChampMetier, "→ sChampTechnique:", sChampTechnique);
 
 			const sNomColonneActive = mChampTechniqueVersColonne[sChampTechnique];
 
-			//console.log("_afficherColonneChampMetier - sNomColonneActive:", sNomColonneActive);
+			console.log("_afficherColonneChampMetier - sNomColonneActive:", sNomColonneActive);
 			// --- FIN DIAGNOSTIC ---
 
 			const oTable = sap.ui.getCore().byId(
@@ -616,7 +620,91 @@ sap.ui.define([
 			} catch (oError) {
 				console.error("_afficherColonneChampMetier - erreur StateUtil:", oError);
 			}
-		}
+
+			const oUiStateModel = this.getView().getModel("uiState");
+			oUiStateModel.setProperty("/champProlongationSelectionne", sChampMetier === "Activer prolongation auto du contrat");
+		},
+
+		onGererProlongationCustom: async function () {
+
+			const oExtensionAPI = this.base.getExtensionAPI();
+			const aSelectedContexts = oExtensionAPI.getSelectedContexts();
+
+			if (aSelectedContexts.length === 0) {
+				return;
+			}
+
+			if (!this._oProlongationModel) {
+				this._oProlongationModel = new sap.ui.model.json.JSONModel({
+					indicateur: false,
+					periode_valeur: "",
+					periode_unite: "DAY",
+					duree_valeur: "",
+					duree_unite: "DAY"
+				});
+			} else {
+				this._oProlongationModel.setData({
+					indicateur: false,
+					periode_valeur: "",
+					periode_unite: "DAY",
+					duree_valeur: "",
+					duree_unite: "DAY"
+				});
+			}
+
+			if (!this._oProlongationDialog) {
+				this._oProlongationDialog = await this.base.getExtensionAPI().loadFragment({
+					name: "com.socotec.aff.propagdemande.ext.fragment.ProlongationDialog",
+					controller: this
+				});
+				this.base.getView().addDependent(this._oProlongationDialog);
+			}
+
+			this._oProlongationDialog.setModel(this._oProlongationModel, "prolongation");
+			this._oProlongationDialog.open();
+		},
+
+		onProlongationIndicatorChange: function (oEvent) {
+			// Le binding "visible" sur les HBox suffit à masquer/afficher les 2 blocs.
+			// Rien de spécial à faire ici, sauf logique complémentaire future si besoin.
+		},
+
+		onFermerProlongationDialog: function () {
+			this._oProlongationDialog.close();
+		},
+
+		onExecuterProlongation: async function () {
+
+			const oData = this._oProlongationModel.getData();
+			const oExtensionAPI = this.base.getExtensionAPI();
+			const oEditFlow = oExtensionAPI.getEditFlow();
+
+			const aSelectedContexts = oExtensionAPI.getSelectedContexts();
+
+			try {
+				await oEditFlow.invokeAction(
+					"com.sap.gateway.srvd.zui_aff_propag_demande.v0001.gererprolongation",
+					{
+						contexts: aSelectedContexts,
+						model: this.base.getView().getModel(),
+						label: "Gérer la prolongation",
+						parameterValues: [
+							{ name: "INDICATEUR", value: oData.indicateur },
+							{ name: "PERIODE_VALEUR", value: oData.periode_valeur },
+							{ name: "PERIODE_UNITE", value: oData.periode_unite },
+							{ name: "DUREE_VALEUR", value: oData.duree_valeur },
+							{ name: "DUREE_UNITE", value: oData.duree_unite }
+						],
+						skipParameterDialog: true
+					}
+				);
+
+				this._oProlongationDialog.close();
+
+			} catch (oError) {
+				console.error("Erreur lors de l'exécution de la prolongation:", oError);
+			}
+		},
 
 	});
 });

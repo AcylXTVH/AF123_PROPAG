@@ -1,0 +1,47 @@
+<core:FragmentDefinition
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <Dialog id="prolongationDialog" title="Gérer la prolongation automatique" contentWidth="30rem">
+    <content>
+      <VBox id="prolongationVBox" class="sapUiSmallMargin">
+
+        <HBox id="prolongationIndicatorHBox" alignItems="Center" class="sapUiSmallMarginBottom">
+          <CheckBox id="prolongationIndicatorCheckBox" selected="{prolongation>/indicateur}" text="Activer prolongation auto du contrat" />
+        </HBox>
+
+        <HBox id="prolongationPeriodeHBox" alignItems="Center" justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
+          <Label id="prolongationPeriodeLabel" text="Phase de prolongation" />
+          <HBox id="prolongationPeriodeValeurUniteHBox">
+            <Input id="prolongationPeriodeValeur" value="{prolongation>/periode_valeur}" width="5rem" type="Number" enabled="{prolongation>/indicateur}" />
+            <Select id="prolongationPeriodeUnite" selectedKey="{prolongation>/periode_unite}" width="7rem" class="sapUiTinyMarginBegin" enabled="{prolongation>/indicateur}">
+              <core:Item id="prolongationPeriodeUniteDay" key="DAY" text="Jour(s)" />
+              <core:Item id="prolongationPeriodeUniteWeek" key="WEEK" text="Semaine(s)" />
+              <core:Item id="prolongationPeriodeUniteMonth" key="MONTH" text="Mois" />
+              <core:Item id="prolongationPeriodeUniteYear" key="YEAR" text="Année(s)" />
+            </Select>
+          </HBox>
+        </HBox>
+
+        <HBox id="prolongationDureeHBox" alignItems="Center" justifyContent="SpaceBetween">
+          <Label id="prolongationDureeLabel" text="Durée de prolongation" />
+          <HBox id="prolongationDureeValeurUniteHBox">
+            <Input id="prolongationDureeValeur" value="{prolongation>/duree_valeur}" width="5rem" type="Number" enabled="{prolongation>/indicateur}" />
+            <Select id="prolongationDureeUnite" selectedKey="{prolongation>/duree_unite}" width="7rem" class="sapUiTinyMarginBegin" enabled="{prolongation>/indicateur}">
+              <core:Item id="prolongationDureeUniteDay" key="DAY" text="Jour(s)" />
+              <core:Item id="prolongationDureeUniteWeek" key="WEEK" text="Semaine(s)" />
+              <core:Item id="prolongationDureeUniteMonth" key="MONTH" text="Mois" />
+              <core:Item id="prolongationDureeUniteYear" key="YEAR" text="Année(s)" />
+            </Select>
+          </HBox>
+        </HBox>
+
+      </VBox>
+    </content>
+    <beginButton>
+      <Button id="prolongationBtnExecuter" text="Exécuter" type="Emphasized" press=".onExecuterProlongation" />
+    </beginButton>
+    <endButton>
+      <Button id="prolongationBtnAnnuler" text="Annuler" press=".onFermerProlongationDialog" />
+    </endButton>
+  </Dialog>
+</core:FragmentDefinition>

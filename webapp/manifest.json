@@ -118,9 +118,16 @@
                     "propagerCustom": {
                       "press": ".extension.com.socotec.aff.propagdemande.ext.controller.ListReportExt.onPropagerCustom",
                       "visible": true,
-                      "enabled": true,
+                      "enabled": "{= !${uiState>/champProlongationSelectionne} }",
                       "requiresSelection": true,
                       "text": "Propager"
+                    },
+                    "gererProlongationCustom": {
+                      "press": ".extension.com.socotec.aff.propagdemande.ext.controller.ListReportExt.onGererProlongationCustom",
+                      "visible": true,
+                      "enabled": "{uiState>/champProlongationSelectionne}",
+                      "requiresSelection": true,
+                      "text": "Gérer la prolongation automatique"
                     }
                   }
                 }
