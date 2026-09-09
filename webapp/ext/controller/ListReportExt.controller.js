@@ -333,17 +333,6 @@ sap.ui.define([
 			}
 		},
 
-		/*_openBpValueHelp: async function () {
-			if (!this._oBpDialog) {
-				this._oBpDialog = await this.base.getExtensionAPI().loadFragment({
-					name: "com.socotec.aff.propagdemande.ext.fragment.BpValueHelp",
-					controller: this
-				});
-				this.base.getView().addDependent(this._oBpDialog);
-			}
-			this._oBpDialog.open();
-		},*/
-
 		_openBpValueHelp: async function () {
 
 			const oConfigContext = this._oInputSource.getBindingContext("config");
