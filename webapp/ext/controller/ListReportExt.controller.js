@@ -361,7 +361,7 @@ sap.ui.define([
 				]);
 				const aContexts = await oListBinding.requestContexts(0, 1);
 				if (aContexts.length > 0) {
-					sSoldToPartyFiltre = aContexts[0].getObject().Partner_Client_Facture || "";
+					sSoldToPartyFiltre = aContexts[0].getObject().Sold_To_Party || "";
 				}
 			}
 
@@ -430,8 +430,6 @@ sap.ui.define([
 					sPartnerIdFiltre = aContexts[0].getObject()[sNomColonnePartner] || "";
 				}
 			}
-
-			//console.log("_openBpAdresseValueHelp - sChampTechnique:", sChampTechnique, "sNomColonnePartner:", sNomColonnePartner, "sPartnerIdFiltre:", sPartnerIdFiltre);
 
 			if (!this._oBpAdresseDialog) {
 				this._oBpAdresseDialog = await this.base.getExtensionAPI().loadFragment({
@@ -579,6 +577,7 @@ sap.ui.define([
 				"DATE_FIN_CONTRAT": "Contend",
 				"PROJET_DESIGNATION_COURTE": "Projet_Designation_Courte",
 				"ZZ1_DES_MISSION_I_SRI": "ZZ1_Des_Mission_I_Sri",
+				"CONTACT_DEST_FACTURE": "Contact_Destinataire_Fact",
 			};
 
 			const oModel = this.base.getView().getModel();
@@ -594,13 +593,7 @@ sap.ui.define([
 				}
 			}
 
-			// --- DIAGNOSTIC TEMPORAIRE ---
-			//console.log("_afficherColonneChampMetier - sChampMetier:", sChampMetier, "→ sChampTechnique:", sChampTechnique);
-
 			const sNomColonneActive = mChampTechniqueVersColonne[sChampTechnique];
-
-			//console.log("_afficherColonneChampMetier - sNomColonneActive:", sNomColonneActive);
-			// --- FIN DIAGNOSTIC ---
 
 			const oTable = sap.ui.getCore().byId(
 				this.base.getView().getId() + "--fe::table::ZR_AFF_PROPAG_DEMANDE::LineItem"
