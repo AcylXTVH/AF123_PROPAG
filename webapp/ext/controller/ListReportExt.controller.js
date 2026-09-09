@@ -578,6 +578,7 @@ sap.ui.define([
 				"AUTO_RENEW_PERIOD": "Auto_Renew_Period",
 				"DATE_FIN_CONTRAT": "Contend",
 				"PROJET_DESIGNATION_COURTE": "Projet_Designation_Courte",
+				"ZZ1_DES_MISSION_I_SRI": "ZZ1_Des_Mission_I_Sri",
 			};
 
 			const oModel = this.base.getView().getModel();
@@ -594,11 +595,11 @@ sap.ui.define([
 			}
 
 			// --- DIAGNOSTIC TEMPORAIRE ---
-			console.log("_afficherColonneChampMetier - sChampMetier:", sChampMetier, "→ sChampTechnique:", sChampTechnique);
+			//console.log("_afficherColonneChampMetier - sChampMetier:", sChampMetier, "→ sChampTechnique:", sChampTechnique);
 
 			const sNomColonneActive = mChampTechniqueVersColonne[sChampTechnique];
 
-			console.log("_afficherColonneChampMetier - sNomColonneActive:", sNomColonneActive);
+			//console.log("_afficherColonneChampMetier - sNomColonneActive:", sNomColonneActive);
 			// --- FIN DIAGNOSTIC ---
 
 			const oTable = sap.ui.getCore().byId(
